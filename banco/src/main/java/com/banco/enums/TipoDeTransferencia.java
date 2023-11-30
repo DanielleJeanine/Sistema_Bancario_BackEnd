@@ -1,4 +1,4 @@
-package com.banco.banco.enums;
+package com.banco.enums;
 
 public enum TipoDeTransferencia {
     PIX, TED, DOC;

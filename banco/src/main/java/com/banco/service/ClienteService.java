@@ -1,4 +1,4 @@
-package com.banco.banco.service;
+package com.banco.service;
 
 public class ClienteService {
     

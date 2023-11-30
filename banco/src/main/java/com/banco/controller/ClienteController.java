@@ -1,4 +1,4 @@
-package com.banco.banco.controller;
+package com.banco.controller;
 
 public class ClienteController {
     

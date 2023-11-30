@@ -1,4 +1,4 @@
-package com.banco.banco.repository;
+package com.banco.repository;
 
 
 public class ClienteRepository {
