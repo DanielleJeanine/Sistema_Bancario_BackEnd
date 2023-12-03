@@ -3,9 +3,9 @@ package com.banco.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.banco.entities.Cliente;
+import com.banco.entities.Endereco;
 
 @Repository
-public interface ClienteRepository extends JpaRepository <Cliente, Long> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
 
 }

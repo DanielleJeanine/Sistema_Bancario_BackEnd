@@ -10,8 +10,8 @@ public class BancoApplication {
 		SpringApplication.run(BancoApplication.class, args);
 	}
 	/*
-	 1-colocar anotaçoes para criar as tabelas no postgres
-	 2-fazer as ligações entre chaves primarias e estrangeiras
-	 3-mudar o arquivo properties
+	 * 1-colocar anotaçoes para criar as tabelas no postgres
+	 * 2-fazer as ligações entre chaves primarias e estrangeiras
+	 * 3-mudar o arquivo properties
 	 */
 }

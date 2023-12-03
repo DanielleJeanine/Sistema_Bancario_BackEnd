@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "saque")
+@Table(name = "transferencia")
 public class Transferencia extends Operacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
