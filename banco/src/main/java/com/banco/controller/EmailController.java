@@ -17,11 +17,10 @@ public class EmailController {
 
     @GetMapping("/send")
     public String sendEmail(@RequestParam String to,
-            @RequestParam String subject,
-            @RequestParam String content) {
+                            @RequestParam String subject,
+                            @RequestParam String content) {
         emailService.sendSimpleEmail(to, subject, content);
 
         return "E-mail enviado com sucesso";
-
     }
 }
