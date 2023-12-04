@@ -15,4 +15,6 @@ public class Pessoa {
     private String email;
     private String telefone;
     private Boolean ativo;
+    private String login;
+    private String senha;
 }

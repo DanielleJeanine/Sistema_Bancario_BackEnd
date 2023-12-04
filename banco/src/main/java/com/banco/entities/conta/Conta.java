@@ -2,6 +2,8 @@ package com.banco.entities.conta;
 
 import java.util.List;
 
+
+import com.banco.DTOs.ContaDTO;
 import com.banco.entities.Cliente;
 
 import jakarta.persistence.Entity;
@@ -39,6 +41,19 @@ public class Conta {
     private List<Transferencia> transfereciasOrigem;
     @OneToMany(mappedBy = "contaDestino")
     private List<Transferencia> transfereciasDestino;
+    public Double saldo(List<Saque>saques){
+        double valorSaque = 0;
 
+        for (int i = 0; i < saques.size(); i++) {
+            valorSaque += saques.get(i).getValor();
+        }
+        return valorSaque;
+    }
+    public ContaDTO contaDTO(Conta conta){
+        ContaDTO contaDTO = new ContaDTO(conta.getNumeroDaConta(),conta.getTipoDeConta(),
+        conta.getId(),conta.getTitularDaConta().getNome(),conta.getSaldo());
+        return contaDTO;
+    }
+    
 
 }

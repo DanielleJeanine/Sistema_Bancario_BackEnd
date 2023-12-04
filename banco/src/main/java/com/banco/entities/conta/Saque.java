@@ -17,10 +17,16 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "saque")
 public class Saque extends Operacao {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "saques",foreignKey = @ForeignKey(name = "saques_Fkey"))
+    @JoinColumn(name = "contaOrigem",foreignKey = @ForeignKey(name = "contaOrigem_Fkey"))
     private Conta contaOrigem;
+    public Saque(){}
+    // public Saque(Saque saque) {
+    //     this.setValor(saque.getValor());
+    //     this.
+    // }
 }

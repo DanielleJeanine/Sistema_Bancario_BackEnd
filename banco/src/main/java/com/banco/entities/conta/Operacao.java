@@ -1,6 +1,7 @@
 package com.banco.entities.conta;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
@@ -10,6 +11,6 @@ import lombok.Data;
 public class Operacao {
     
     private Float valor;
-    private LocalDate data;
+    private LocalDateTime data;
     private Boolean concluidoComSucesso;
 }

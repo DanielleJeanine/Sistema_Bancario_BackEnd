@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,7 +30,7 @@ public class Cliente extends Pessoa{
     @ManyToOne
     @JoinColumn(name = "funcionario",foreignKey = @ForeignKey(name = "funcionario_Fkey"))
     private Funcionario gerente;
-    @ManyToOne
-    @JoinColumn(name = "endereco", foreignKey = @ForeignKey(name = "endereco_Fkey"))
-    private Endereco endereco;
+    @OneToOne
+    @JoinColumn(name = "enderecoCliente", foreignKey = @ForeignKey(name = "endereco_Fkey"))
+    private Endereco enderecoCliente;
 }

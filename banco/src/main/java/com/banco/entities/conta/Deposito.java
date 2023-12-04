@@ -23,4 +23,5 @@ public class Deposito extends Operacao {
     @JoinColumn(name = "depositos",foreignKey = @ForeignKey(name = "depositos_Fkey"))
     private Conta contaDestino;
     
+    
 }
