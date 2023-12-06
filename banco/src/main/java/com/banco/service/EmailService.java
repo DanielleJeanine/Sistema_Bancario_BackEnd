@@ -12,7 +12,7 @@ public class EmailService {
 
     public void sendSimpleEmail (String to, String subject, String content){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("jose108241santos@gmail.com"); //usar mesmo e-amil que está configurado no application.properties
+        message.setFrom("danielle.jeanine92@gmail.com"); //usar mesmo e-amil que está configurado no application.properties
         message.setTo(to);
         message.setSubject(subject);
         message.setText(content);
