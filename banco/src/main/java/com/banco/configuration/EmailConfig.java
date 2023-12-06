@@ -13,8 +13,8 @@ public class EmailConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
-        mailSender.setUsername("danielle.jeanine92@gmail.com");
-        mailSender.setPassword("jpsflgpruhvntnyr");
+        mailSender.setUsername("adicionar email");
+        mailSender.setPassword("adicionar senha");
 
         return mailSender;
 
