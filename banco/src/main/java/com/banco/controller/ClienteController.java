@@ -40,7 +40,7 @@ public class ClienteController {
         if(clienteAtualizado ==  null) return new ResponseEntity<>(clienteAtualizado, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(clienteAtualizado,HttpStatus.OK);
     }
-    @PutMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Cliente> deleteLogicalCliente(@PathVariable Long id){
         Cliente cliente = clienteService.deleteLogical(id);
         if(cliente ==  null) return new ResponseEntity<>(cliente, HttpStatus.NOT_FOUND);
