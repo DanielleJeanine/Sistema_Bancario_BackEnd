@@ -3,6 +3,7 @@ package com.banco.entities;
 import java.util.List;
 
 import com.banco.DTOs.ClienteDTO;
+import com.banco.DTOs.EnderecoDTO;
 import com.banco.DTOs.FuncionarioDTO;
 
 import jakarta.persistence.Entity;
@@ -41,9 +42,14 @@ public class Funcionario extends Pessoa {
     }
     //String nome, String cpf, String gerente, String telefone, String email, LocalDate data_nascimento
     public ClienteDTO clienteDTO(Cliente cliente){
+        EnderecoDTO endereco = cliente.enderecoDTO(cliente.getEnderecoCliente());
         ClienteDTO clienteDTO = new ClienteDTO(cliente.getNome(),cliente.getCpf(),
-        cliente.getTelefone(),cliente.getEmail(),cliente.getDataDeNascimento());
+        cliente.getTelefone(),cliente.getEmail(),cliente.getDataDeNascimento(),endereco);
          return clienteDTO;
     }
-    
+    public EnderecoDTO enderecoDTO(Endereco endereco){
+        EnderecoDTO enderecoDTO = new EnderecoDTO(endereco.getCep(),endereco.getEstado(),endereco.getCidade(),
+        endereco.getBairro(),endereco.getRua(),endereco.getComplemento());
+        return enderecoDTO;
+    }
 }

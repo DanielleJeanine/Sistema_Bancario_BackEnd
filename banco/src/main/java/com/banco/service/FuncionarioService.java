@@ -45,7 +45,7 @@ public class FuncionarioService {
             for (int i = 0; i < listaClientes.size(); i++) {
                 ClienteDTO clienteDTO = new ClienteDTO(listaClientes.get(i).getNome(),
                  listaClientes.get(i).getCpf(),listaClientes.get(i).getTelefone(),
-                  listaClientes.get(i).getEmail(),listaClientes.get(i).getDataDeNascimento());
+                  listaClientes.get(i).getEmail(),listaClientes.get(i).getDataDeNascimento(),listaClientes.get(i).enderecoDTO(listaClientes.get(i).getEnderecoCliente()));
                    clientes.add(clienteDTO);
             }
             

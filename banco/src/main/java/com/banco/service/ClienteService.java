@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.banco.DTOs.ClienteDTO;
 import com.banco.entities.Cliente;
 import com.banco.entities.conta.Conta;
 import com.banco.entities.conta.Deposito;
@@ -20,9 +21,10 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
 
-    public Cliente getInfoCliente(Long id){
+    public ClienteDTO getInfoCliente(Long id){
         Cliente cliente = clienteRepository.findById(id).orElse(null);
-        return cliente;
+        ClienteDTO clienteDTO = cliente.clienteDTO(cliente);
+        return clienteDTO;
 
     }
 

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.banco.DTOs.ClienteDTO;
 import com.banco.entities.Cliente;
 import com.banco.service.ClienteService;
 
@@ -20,8 +21,8 @@ public class ClienteController {
 
 
     @GetMapping("/perfil/{id}")
-    public ResponseEntity <Cliente> getInfoCliente(@PathVariable Long id){
-        Cliente cliente = clienteService.getInfoCliente(id);
+    public ResponseEntity <ClienteDTO> getInfoCliente(@PathVariable Long id){
+        ClienteDTO cliente = clienteService.getInfoCliente(id);
         if(cliente == null) return new ResponseEntity<>(cliente, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(cliente,HttpStatus.OK);
         
