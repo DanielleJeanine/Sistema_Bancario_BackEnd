@@ -43,7 +43,7 @@ public class Funcionario extends Pessoa {
     //String nome, String cpf, String gerente, String telefone, String email, LocalDate data_nascimento
     public ClienteDTO clienteDTO(Cliente cliente){
         EnderecoDTO endereco = cliente.enderecoDTO(cliente.getEnderecoCliente());
-        ClienteDTO clienteDTO = new ClienteDTO(cliente.getNome(),cliente.getCpf(),
+        ClienteDTO clienteDTO = new ClienteDTO(cliente.getId(),cliente.getNome(),cliente.getCpf(),
         cliente.getTelefone(),cliente.getEmail(),cliente.getDataDeNascimento(),endereco);
          return clienteDTO;
     }

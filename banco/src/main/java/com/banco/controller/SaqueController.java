@@ -32,4 +32,10 @@ public class SaqueController {
         return new ResponseEntity<>(saqueDTO, HttpStatus.OK);
     }
 
+    @PostMapping("/sacar/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Saque sacar (@RequestBody Saque novoSaque, @PathVariable Long id){
+        return saqueService.realizarSaque(novoSaque, id);
+    }
+
 }

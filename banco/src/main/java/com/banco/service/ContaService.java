@@ -30,22 +30,21 @@ public class ContaService {
     }
     public List<ContaDTO> getAllcontas(Long id){
         Cliente cliente = getCliente(id);
-        List<Conta> contas = cliente.getContas();
+        Conta contas = cliente.getConta();
         List<ContaDTO> contasDTO = new ArrayList<>();
-        if(contas != null){
-            for (int i = 0; i < contas.size(); i++) {
-                ContaDTO contaDTO = new ContaDTO(contas.get(i).getNumeroDaConta(), contas.get(i).getTipoDeConta(),
-                 contas.get(i).getId(), contas.get(i).getTitularDaConta().getNome(), contas.get(i).getSaldo());
-                contasDTO.add(contaDTO);
-            }
-        }
+//        if(contas != null){
+//            for (int i = 0; i < contas.size(); i++) {
+//                ContaDTO contaDTO = new ContaDTO(contas.get(i).getNumeroDaConta(), contas.get(i).getTipoDeConta(),
+//                 contas.get(i).getId(), contas.get(i).getTitularDaConta().getNome(), contas.get(i).getSaldo());
+//                contasDTO.add(contaDTO);
+//            }
+//        }
         return contasDTO;
         
     }
-    public ContaDTO getContaById(Long id){
+    public Conta getContaById(Long id){
         Conta conta = contaRepository.findById(id).orElse(null);
-        ContaDTO contaDTO = conta.contaDTO(conta);
-        return contaDTO;
+        return conta;
     }
     public ContaDTO updateConta(Conta conta){
         try {
@@ -81,6 +80,11 @@ public class ContaService {
         contaRepository.save(contaNova);
         ContaDTO contaRetorno = conta.contaDTO(contaNova);
         return contaRetorno;
+    }
+
+    public Conta criarConta(Conta conta){
+        Conta novaConta  = contaRepository.save(conta);
+        return novaConta;
     }
     
 }

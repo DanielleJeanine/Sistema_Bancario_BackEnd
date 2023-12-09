@@ -51,9 +51,9 @@ public class FuncionarioController {
         return new ResponseEntity<>(cliente,HttpStatus.OK);
     }
 
-    @PostMapping("/cadastro/funcionario")
-    public ResponseEntity<FuncionarioDTO> saveFuncionario(@RequestBody Funcionario funcionario){
-        FuncionarioDTO saveFuncionario = funcionarioService.saveFuncionario(funcionario);
+    @PostMapping("/cadastro")
+    public ResponseEntity<Funcionario> saveFuncionario(@RequestBody Funcionario funcionario){
+        Funcionario saveFuncionario = funcionarioService.saveFuncionario(funcionario);
         if (saveFuncionario == null) return new ResponseEntity<>(saveFuncionario, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(saveFuncionario, HttpStatus.OK);
     }

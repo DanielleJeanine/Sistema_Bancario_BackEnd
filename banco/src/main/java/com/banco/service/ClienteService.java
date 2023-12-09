@@ -1,5 +1,6 @@
 package com.banco.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -20,6 +21,12 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private EnderecoService enderecoService;
+
+    @Autowired
+    private ContaService contaService;
+
 
     public ClienteDTO getInfoCliente(Long id){
         Cliente cliente = clienteRepository.findById(id).orElse(null);
@@ -29,6 +36,8 @@ public class ClienteService {
     }
 
     public Cliente saveCliente(Cliente cliente){
+        cliente.setEnderecoCliente(enderecoService.saveEndereco(cliente.getEnderecoCliente()));
+        cliente.setConta(contaService.criarConta(cliente.getConta()));
         Cliente clienteNovo = clienteRepository.save(cliente);
         return clienteNovo;
     }
@@ -49,32 +58,32 @@ public class ClienteService {
         return cliente;
 
     }
-    public List<Conta>getAllContas(Long id ){
-        Cliente cliente = clienteRepository.findById(id).orElse(null);
-        List<Conta> contas= cliente.getContas();
-        return contas;
-    }
+//    public List<Conta>getAllContas(Long id ){
+//        Cliente cliente = clienteRepository.findById(id).orElse(null);
+//        List<Conta> contas= cliente.getConta();
+//        return contas;
+//    }
 
-    public List<Saque> getAllSaques(Long id, String numero_Conta){
-        Cliente cliente = clienteRepository.findById(id).orElse(null);
-        for(int i = 0 ;i<cliente.getContas().size();i++){
-            if( numero_Conta.equals(cliente.getContas().get(i).getNumeroDaConta())){
-                return cliente.getContas().get(i).getSaques();
-            }
-        }
-        return null;
+//    public List<Saque> getAllSaques(Long id, String numero_Conta){
+////        Cliente cliente = clienteRepository.findById(id).orElse(null);
+////        for(int i = 0 ;i<cliente.getContas().size();i++){
+////            if( numero_Conta.equals(cliente.getContas().get(i).getNumeroDaConta())){
+////                return cliente.getContas().get(i).getSaques();
+////            }
+////        }
+////        return null;
+////
+////    }
+////    public List<Deposito> getAllDepositos(Long id, String numero_Conta){
+////        Cliente cliente = clienteRepository.findById(id).orElse(null);
+////        for(int i = 0 ;i<cliente.getContas().size();i++){
+////            if( numero_Conta.equals(cliente.getContas().get(i).getNumeroDaConta())){
+////                return cliente.getContas().get(i).getDepositos();
+////            }
+////        }
+////        return null;
 
-    }
-    public List<Deposito> getAllDepositos(Long id, String numero_Conta){
-        Cliente cliente = clienteRepository.findById(id).orElse(null);
-        for(int i = 0 ;i<cliente.getContas().size();i++){
-            if( numero_Conta.equals(cliente.getContas().get(i).getNumeroDaConta())){
-                return cliente.getContas().get(i).getDepositos();
-            }
-        }
-        return null;
-
-    }
+//    }
     // public ExtratoDTO getAllTransferencias(Long id, String numero_Conta){
     //     Cliente cliente = clienteRepository.findById(id).orElse(null);
     //     for(int i = 0 ;i<cliente.getContas().size();i++){
@@ -89,5 +98,5 @@ public class ClienteService {
     // }
         
 
-    
+
 }

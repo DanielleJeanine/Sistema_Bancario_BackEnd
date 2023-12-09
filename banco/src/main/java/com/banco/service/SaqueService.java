@@ -1,5 +1,6 @@
 package com.banco.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class SaqueService {
     @Autowired
     public ContaRepository contaRepository;
 
+    @Autowired
+    private ContaService contaService;
+
     //valor, data,status e conta
 
     public SaqueDTO postSaque(Saque saque,Long id){
@@ -44,6 +48,22 @@ public class SaqueService {
         else{
             return null;
         }
+    }
+
+    public Saque realizarSaque(Saque saque, Long id){
+        Saque novoSaque = new Saque();
+        Conta contaOrigem = contaService.getContaById(id);
+        novoSaque.setContaOrigem(contaOrigem);
+        novoSaque.setData(LocalDateTime.now());
+        novoSaque.setValor(saque.getValor());
+        if (contaOrigem.getSaldo() >= saque.getValor()){
+            contaOrigem.setSaldo(contaOrigem.getSaldo()- novoSaque.getValor());
+            return novoSaque;
+        } else {
+            return null;
+        }
+
+
     }
     public List<SaqueDTO> getSaques(Long id) {
         Conta conta = contaRepository.findById(id).orElse(null);
