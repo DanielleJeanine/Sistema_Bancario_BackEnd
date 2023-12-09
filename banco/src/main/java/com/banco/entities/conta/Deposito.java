@@ -22,6 +22,7 @@ public class Deposito extends Operacao {
     @ManyToOne
     @JoinColumn(name = "depositos",foreignKey = @ForeignKey(name = "depositos_Fkey"))
     private Conta contaDestino;
-    
+    public Deposito(Deposito deposito){}
+    public Deposito(){}
     
 }

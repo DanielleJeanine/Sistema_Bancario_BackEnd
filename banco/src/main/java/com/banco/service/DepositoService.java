@@ -31,14 +31,15 @@ public class DepositoService {
 
     public DepositoDTO postDeposito(Deposito saque,Long id){
         Deposito depositoNovo = new Deposito();
-        depositoNovo.setContaDestino(saque.getContaDestino());
+        Conta conta = contaRepository.findById(id).orElse(null);
+        depositoNovo.setContaDestino(conta);
         depositoNovo.setValor(saque.getValor());
         depositoNovo.setConcluidoComSucesso(true);
         depositoNovo.setData(saque.getData());
         if(depositoNovo.getValor()!= null){
-
-            Conta conta = contaRepository.findById(id).orElse(null);
             depositoNovo.setContaDestino(conta);
+            conta.setSaldo(conta.getSaldo()+depositoNovo.getValor());
+            contaRepository.save(conta);
             depositoRepository.save(depositoNovo);
             DepositoDTO depositoDTO = new DepositoDTO(depositoNovo.getData(), depositoNovo.getValor(), true);
             return depositoDTO;
@@ -53,8 +54,8 @@ public class DepositoService {
     
         if (conta.getDepositos() != null) {
             for (int i = 0; i < conta.getSaques().size(); i++) {
-                DepositoDTO depositoDTO = new DepositoDTO(conta.getSaques().get(i).getData(),
-                conta.getSaques().get(i).getValor(), true);
+                DepositoDTO depositoDTO = new DepositoDTO(conta.getDepositos().get(i).getData(),
+                conta.getDepositos().get(i).getValor(), true);
                 depositosDTO.add(depositoDTO);
                 
             }

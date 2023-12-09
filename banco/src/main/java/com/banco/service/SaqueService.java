@@ -28,15 +28,17 @@ public class SaqueService {
     //valor, data,status e conta
 
     public SaqueDTO postSaque(Saque saque,Long id){
+        Conta conta = contaRepository.findById(id).orElse(null);
         Saque saqueNovo = new Saque();
-        saqueNovo.setContaOrigem(saque.getContaOrigem());
+        saqueNovo.setContaOrigem(conta);
         saqueNovo.setValor(saque.getValor());
         saqueNovo.setConcluidoComSucesso(true);
         saqueNovo.setData(saque.getData());
-        if(saqueNovo.getValor()!= null){
+        if(saqueNovo.getValor()!= null && conta.getSaldo() > saqueNovo.getValor()){
 
-            Conta conta = contaRepository.findById(id).orElse(null);
             saqueNovo.setContaOrigem(conta);
+            conta.setSaldo(conta.getSaldo()-saqueNovo.getValor());
+            contaRepository.save(conta);
             saqueRepository.save(saqueNovo);
             SaqueDTO saqueDTO = new SaqueDTO(saqueNovo.getData(), saqueNovo.getValor(), true);
             return saqueDTO;

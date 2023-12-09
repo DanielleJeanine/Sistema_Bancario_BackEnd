@@ -26,12 +26,20 @@ public class TransferenciaController {
         if(transferencia == null) return new ResponseEntity<>(transferencia,HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(transferencia,HttpStatus.OK);
     }
-    @PostMapping("/transferencia/{id}")
-    public ResponseEntity<TransferenciaDTO> postTransferencia(@PathVariable Long id ,@RequestBody Transferencia transferencia){
-        TransferenciaDTO transferenciaDTO = transferenciaService.postTransferencia(transferencia, id);
-        if(transferenciaDTO == null) return new ResponseEntity<>(transferenciaDTO,HttpStatus.NOT_FOUND);
+    @PostMapping("/{idOrigem}")
+    public ResponseEntity<TransferenciaDTO> postTransferencia(
+            @PathVariable Long idOrigem,
+            @RequestBody Transferencia transferencia
+    ) {
+        TransferenciaDTO transferenciaDTO = transferenciaService.postTransferencia(idOrigem, transferencia);
+        
+        if (transferenciaDTO == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
         return new ResponseEntity<>(transferenciaDTO, HttpStatus.OK);
     }
-
 }
+
+
 
