@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import com.banco.DTOs.ContaDTO;
+import com.banco.DTOs.ExtratoDTO;
 import com.banco.entities.conta.Conta;
 import com.banco.service.ContaService;
 
@@ -53,5 +54,11 @@ public class ContaController {
         // if(contaNova == null) return new ResponseEntity<>(contaNova, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(contaNova, HttpStatus.OK);
         
+    }
+    @GetMapping("/extrato/{id}")
+    public ResponseEntity<ExtratoDTO> getExtrato(@PathVariable Long id){
+        ExtratoDTO extrato = contaService.getExtrato(id);
+        if(extrato == null) return new ResponseEntity<>(extrato, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(extrato, HttpStatus.OK);
     }
 }

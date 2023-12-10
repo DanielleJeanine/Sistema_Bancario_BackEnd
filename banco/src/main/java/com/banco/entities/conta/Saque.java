@@ -24,9 +24,10 @@ public class Saque extends Operacao {
     @ManyToOne
     @JoinColumn(name = "contaOrigem",foreignKey = @ForeignKey(name = "contaOrigem_Fkey"))
     private Conta contaOrigem;
-    public Saque(){}
+    public Saque(Saque saque){}
     // public Saque(Saque saque) {
     //     this.setValor(saque.getValor());
     //     this.
     // }
+    public Saque(){}
 }

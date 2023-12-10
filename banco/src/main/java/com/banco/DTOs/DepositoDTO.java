@@ -1,7 +1,8 @@
 package com.banco.DTOs;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record DepositoDTO(LocalDateTime data, float valor,boolean status) {
+public record DepositoDTO(LocalDate data, float valor, boolean status) {
 
 }

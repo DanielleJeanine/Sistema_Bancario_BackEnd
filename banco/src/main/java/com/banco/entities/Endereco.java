@@ -1,6 +1,8 @@
 package com.banco.entities;
 
 
+import com.banco.DTOs.EnderecoDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,4 +31,10 @@ public class Endereco {
     private Funcionario funcionario;
     @OneToOne(mappedBy = "enderecoCliente")
     private Cliente cliente;
+    //bairro,cep,rua,numero,complemplemento,estado,cidade,
+    public EnderecoDTO enderecoDTO(Endereco endereco){
+        EnderecoDTO enderecoDTO = new EnderecoDTO(endereco.getCep(),endereco.getEstado(),endereco.getCidade(),
+        endereco.getBairro(),endereco.getRua(),endereco.getComplemento());
+        return enderecoDTO;
+    }
 }

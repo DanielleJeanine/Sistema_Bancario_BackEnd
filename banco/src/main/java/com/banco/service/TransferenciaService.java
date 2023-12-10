@@ -26,52 +26,69 @@ public class TransferenciaService {
 
     // valor, data,status e conta
 
-    public TransferenciaDTO postTransferencia(Transferencia transferencia, Long id) {
-        Transferencia transferenciaNova = new Transferencia();
-        Conta contaOrigem = contaRepository.findById(id).orElse(null);
-        transferenciaNova.setContaOrigem(contaOrigem);
-        transferenciaNova.setValor(transferenciaNova.getValor());
-        transferenciaNova.setConcluidoComSucesso(true);
-        transferenciaNova.setData(transferenciaNova.getData());
+    public TransferenciaDTO postTransferencia(Long idOrigem, Transferencia transferencia) {
+        Conta contaOrigem = contaRepository.findById(idOrigem).orElse(null);
+        Conta contaDestino = contaRepository.findById(transferencia.getContaDestino().getId()).orElse(null);
         
-        
-        if (transferenciaNova.getValor() != null && contaOrigem!= null ) {
-            
-            transferenciaNova.setContaDestino(contaOrigem);
-            transferenciaRepository.save(transferenciaNova);
-            TransferenciaDTO transferenciaNovaDTO = new TransferenciaDTO(transferenciaNova.getData(),
-             transferenciaNova.getValor(), true, contaOrigem.getNumeroDaConta(),
-             transferenciaNova.getContaDestino().getNumeroDaConta());
-            return transferenciaNovaDTO;
+        if (contaOrigem != null && contaDestino != null && transferencia.getValor() != null && contaOrigem.getSaldo()>transferencia.getValor() ) {
+            transferencia.setContaOrigem(contaOrigem);
+            transferencia.setContaDestino(contaDestino);
+
+            contaOrigem.setSaldo(contaOrigem.getSaldo()-transferencia.getValor());
+            contaDestino.setSaldo(contaDestino.getSaldo()+transferencia.getValor());
+            contaRepository.save(contaOrigem);
+            contaRepository.save(contaDestino);
+
+            transferenciaRepository.save(transferencia);
+
+            TransferenciaDTO transferenciaDTO = new TransferenciaDTO(
+                    transferencia.getData(),
+                    transferencia.getValor(),
+                    true,
+                    contaOrigem.getNumeroDaConta(),
+                    contaDestino.getNumeroDaConta()
+            );
+
+            return transferenciaDTO;
         } else {
             return null;
         }
     }
 
+
     public List<TransferenciaDTO> getTransferencias(Long id) {
         Conta conta = contaRepository.findById(id).orElse(null);
-        List<TransferenciaDTO> saquesDTO = new ArrayList<>();
-
-        if (conta.getTransfereciasDestino() != null) {
-            for (int i = 0; i < conta.getTransfereciasDestino().size(); i++) {
-                TransferenciaDTO transferenciaDTO = new TransferenciaDTO(conta.getTransfereciasDestino().get(i).getData(),
-             conta.getTransfereciasDestino().get(i).getValor(), true, conta.getTransfereciasDestino().get(i).getContaOrigem().getNumeroDaConta(),
-             conta.getTransfereciasDestino().get(i).getContaDestino().getNumeroDaConta());
-                saquesDTO.add(transferenciaDTO);
-
+        List<TransferenciaDTO> transferenciasDTO = new ArrayList<>();
+    
+        if (conta != null) {
+            if (conta.getTransfereciasDestino() != null) {
+                for (Transferencia transferencia : conta.getTransfereciasDestino()) {
+                    TransferenciaDTO transferenciaDTO = new TransferenciaDTO(
+                            transferencia.getData(),
+                            transferencia.getValor(),
+                            true,
+                            transferencia.getContaOrigem().getNumeroDaConta(),
+                            transferencia.getContaDestino().getNumeroDaConta()
+                    );
+                    transferenciasDTO.add(transferenciaDTO);
+                }
+            }
+    
+            if (conta.getTransfereciasOrigem() != null) {
+                for (Transferencia transferencia : conta.getTransfereciasOrigem()) {
+                    TransferenciaDTO transferenciaDTO = new TransferenciaDTO(
+                            transferencia.getData(),
+                            transferencia.getValor(),
+                            true,
+                            transferencia.getContaOrigem().getNumeroDaConta(),
+                            transferencia.getContaDestino().getNumeroDaConta()
+                    );
+                    transferenciasDTO.add(transferenciaDTO);
+                }
             }
         }
-        if (conta.getTransfereciasOrigem() != null) {
-            for (int i = 0; i < conta.getTransfereciasOrigem().size(); i++) {
-                TransferenciaDTO transferenciaDTO = new TransferenciaDTO(conta.getTransfereciasOrigem().get(i).getData(),
-             conta.getTransfereciasOrigem().get(i).getValor(), true, conta.getTransfereciasOrigem().get(i).getContaOrigem().getNumeroDaConta(),
-             conta.getTransfereciasOrigem().get(i).getContaOrigem().getNumeroDaConta());
-                saquesDTO.add(transferenciaDTO);
-
-            }
-        }
-
-        return saquesDTO;
+    
+        return transferenciasDTO;
     }
 
 }

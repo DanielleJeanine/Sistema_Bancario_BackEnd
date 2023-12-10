@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.banco.DTOs.ClienteDTO;
 import com.banco.entities.Cliente;
 import com.banco.entities.conta.Conta;
 import com.banco.entities.conta.Deposito;
@@ -19,14 +20,19 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private EnderecoService enderecoService;
 
-    public Cliente getInfoCliente(Long id){
+
+    public ClienteDTO getInfoCliente(Long id){
         Cliente cliente = clienteRepository.findById(id).orElse(null);
-        return cliente;
+        ClienteDTO clienteDTO = cliente.clienteDTO(cliente);
+        return clienteDTO;
 
     }
 
     public Cliente saveCliente(Cliente cliente){
+        cliente.setEnderecoCliente(enderecoService.saveEnderecoCliente(cliente.getEnderecoCliente()));
         Cliente clienteNovo = clienteRepository.save(cliente);
         return clienteNovo;
     }
