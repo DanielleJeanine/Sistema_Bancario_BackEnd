@@ -50,17 +50,9 @@ public class EnderecoService {
         }
     }
 
-    public EnderecoDTO saveEnderecoCliente(Endereco endereco, Long idCliente) {
-        Cliente cliente = clienteRepository.findById(idCliente).orElse(null);
-
-        if (cliente != null) {
-            cliente.setEnderecoCliente(endereco);
+    public Endereco saveEnderecoCliente(Endereco endereco) {
             Endereco enderecoNovo = enderecoRepository.save(endereco);
-            EnderecoDTO enderecoDTO = enderecoNovo.enderecoDTO(enderecoNovo);
-            return enderecoDTO;
-        } else {
-            return null;
-        }
+            return enderecoNovo;
     }
 
     public Endereco saveEnderecoFuncionario(Endereco endereco, Long id) {

@@ -20,6 +20,9 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private EnderecoService enderecoService;
+
 
     public ClienteDTO getInfoCliente(Long id){
         Cliente cliente = clienteRepository.findById(id).orElse(null);
@@ -29,6 +32,7 @@ public class ClienteService {
     }
 
     public Cliente saveCliente(Cliente cliente){
+        cliente.setEnderecoCliente(enderecoService.saveEnderecoCliente(cliente.getEnderecoCliente()));
         Cliente clienteNovo = clienteRepository.save(cliente);
         return clienteNovo;
     }
