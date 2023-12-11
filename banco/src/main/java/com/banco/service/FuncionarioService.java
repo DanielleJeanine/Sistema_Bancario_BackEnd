@@ -21,6 +21,9 @@ public class FuncionarioService {
     private FuncionarioRepository funcionarioRepository;
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoService enderecoService;
     
     private Funcionario funcionarioAP = new Funcionario();
 
@@ -43,7 +46,7 @@ public class FuncionarioService {
         List<ClienteDTO> clientes = new ArrayList<>();
         if (listaClientes != null) {
             for (int i = 0; i < listaClientes.size(); i++) {
-                ClienteDTO clienteDTO = new ClienteDTO(listaClientes.get(i).getNome(),
+                ClienteDTO clienteDTO = new ClienteDTO(listaClientes.get(i).getId(),listaClientes.get(i).getNome(),
                  listaClientes.get(i).getCpf(),listaClientes.get(i).getTelefone(),
                   listaClientes.get(i).getEmail(),listaClientes.get(i).getDataDeNascimento(),listaClientes.get(i).enderecoDTO(listaClientes.get(i).getEnderecoCliente()));
                    clientes.add(clienteDTO);
@@ -66,6 +69,7 @@ public class FuncionarioService {
     }
 
     public FuncionarioDTO saveFuncionario(Funcionario funcionario){
+        funcionario.setEnderecoFuncionario(enderecoService.saveEnderecoFuncionario(funcionario.getEnderecoFuncionario()));
         Funcionario funcionarioNovo = funcionarioRepository.save(funcionario);
         FuncionarioDTO funcionarioDTO =funcionarioAP.funcionarioDTO(funcionarioNovo);
         return funcionarioDTO;

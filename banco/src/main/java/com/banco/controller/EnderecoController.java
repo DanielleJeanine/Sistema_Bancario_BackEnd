@@ -46,17 +46,17 @@ public class EnderecoController {
 
     }
 
-    @PostMapping("/cadastro/cliente/{id}")
-    public ResponseEntity<EnderecoDTO> saveEnderecoCliente(@RequestBody Endereco endereco, @PathVariable Long id) {
-        EnderecoDTO saveEndereco = enderecoService.saveEnderecoCliente(endereco, id);
-        if (saveEndereco == null)
-            return new ResponseEntity<>(saveEndereco, HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(saveEndereco, HttpStatus.OK);
-    }
+//    @PostMapping("/cadastro/cliente/{id}")
+//    public ResponseEntity<EnderecoDTO> saveEnderecoCliente(@RequestBody Endereco endereco, @PathVariable Long id) {
+//        EnderecoDTO saveEndereco = enderecoService.saveEnderecoCliente(endereco, id);
+//        if (saveEndereco == null)
+//            return new ResponseEntity<>(saveEndereco, HttpStatus.NOT_FOUND);
+//        return new ResponseEntity<>(saveEndereco, HttpStatus.OK);
+//    }
 
     @PostMapping("/cadastro/funcionario/{id}")
-    public ResponseEntity<Endereco> saveEnderecoFuncionario(@RequestBody Endereco endereco, @PathVariable Long id) {
-        Endereco saveEndereco = enderecoService.saveEnderecoFuncionario(endereco, id);
+    public ResponseEntity<Endereco> saveEnderecoFuncionario(@RequestBody Endereco endereco) {
+        Endereco saveEndereco = enderecoService.saveEnderecoFuncionario(endereco);
         if (saveEndereco == null)
             return new ResponseEntity<>(saveEndereco, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(saveEndereco, HttpStatus.OK);

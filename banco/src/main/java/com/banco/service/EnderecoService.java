@@ -55,10 +55,8 @@ public class EnderecoService {
             return enderecoNovo;
     }
 
-    public Endereco saveEnderecoFuncionario(Endereco endereco, Long id) {
-        Funcionario funcionario = funcionarioRepository.findById(id).orElse(null);
+    public Endereco saveEnderecoFuncionario(Endereco endereco) {
         Endereco enderecoNovo = enderecoRepository.save(endereco);
-        funcionario.setEnderecoFuncionario(enderecoNovo);
         enderecoRepository.save(enderecoNovo);
         return enderecoNovo;
     }

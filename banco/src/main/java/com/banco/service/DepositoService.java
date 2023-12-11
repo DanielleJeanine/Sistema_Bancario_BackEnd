@@ -29,13 +29,13 @@ public class DepositoService {
 
     //valor, data,status e conta
 
-    public DepositoDTO postDeposito(Deposito saque,Long id){
+    public DepositoDTO postDeposito(Deposito deposito,Long id){
         Deposito depositoNovo = new Deposito();
         Conta conta = contaRepository.findById(id).orElse(null);
         depositoNovo.setContaDestino(conta);
-        depositoNovo.setValor(saque.getValor());
+        depositoNovo.setValor(deposito.getValor());
         depositoNovo.setConcluidoComSucesso(true);
-        depositoNovo.setData(saque.getData());
+        depositoNovo.setData(deposito.getData());
         if(depositoNovo.getValor()!= null){
             depositoNovo.setContaDestino(conta);
             conta.setSaldo(conta.getSaldo()+depositoNovo.getValor());
