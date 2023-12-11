@@ -24,6 +24,9 @@ public class TransferenciaService {
     @Autowired
     public ContaRepository contaRepository;
 
+    @Autowired
+    EmailService emailService;
+
     // valor, data,status e conta
 
     public TransferenciaDTO postTransferencia(Long idOrigem, Transferencia transferencia) {
@@ -40,6 +43,8 @@ public class TransferenciaService {
             contaRepository.save(contaDestino);
 
             transferenciaRepository.save(transferencia);
+            emailService.enviarEmail("danjeyfull@gmail.com","Realização de Transferência", "Foi realizado em sua conta uma transferência de R$ " + transferencia.getValor());
+
 
             TransferenciaDTO transferenciaDTO = new TransferenciaDTO(
                     transferencia.getData(),

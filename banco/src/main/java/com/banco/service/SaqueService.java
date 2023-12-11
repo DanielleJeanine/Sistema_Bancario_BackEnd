@@ -25,6 +25,9 @@ public class SaqueService {
     @Autowired
     public ContaRepository contaRepository;
 
+    @Autowired
+    EmailService emailService;
+
     //valor, data,status e conta
 
     public SaqueDTO postSaque(Saque saque,Long id){
@@ -41,6 +44,7 @@ public class SaqueService {
             contaRepository.save(conta);
             saqueRepository.save(saqueNovo);
             SaqueDTO saqueDTO = new SaqueDTO(saqueNovo.getData(), saqueNovo.getValor(), true);
+            emailService.enviarEmail("danjeyfull@gmail.com","Realização de Saque","Foi realizado em sua conta um saque de R$ " +saqueNovo.getValor());
             return saqueDTO;
         }
         else{

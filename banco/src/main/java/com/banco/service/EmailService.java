@@ -10,12 +10,12 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendSimpleEmail (String to, String subject, String content){
+    public void enviarEmail (String para, String assunto, String conteudo){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("danielle.jeanine92@gmail.com"); //usar mesmo e-amil que está configurado no application.properties
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(content);
+        message.setTo(para);
+        message.setSubject(assunto);
+        message.setText(conteudo);
 
         mailSender.send(message);
     }

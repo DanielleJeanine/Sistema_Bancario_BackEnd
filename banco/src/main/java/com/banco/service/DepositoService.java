@@ -27,6 +27,9 @@ public class DepositoService {
     @Autowired
     public ContaRepository contaRepository;
 
+    @Autowired
+    EmailService emailService;
+
     //valor, data,status e conta
 
     public DepositoDTO postDeposito(Deposito deposito,Long id){
@@ -39,8 +42,11 @@ public class DepositoService {
         if(depositoNovo.getValor()!= null){
             depositoNovo.setContaDestino(conta);
             conta.setSaldo(conta.getSaldo()+depositoNovo.getValor());
+
             contaRepository.save(conta);
             depositoRepository.save(depositoNovo);
+            emailService.enviarEmail("danjeyfull@gmail.com","Realização de Depósito","Foi realizado em sua conta um depósito de R$ " +depositoNovo.getValor());
+
             DepositoDTO depositoDTO = new DepositoDTO(depositoNovo.getData(), depositoNovo.getValor(), true);
             return depositoDTO;
         }
